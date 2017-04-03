@@ -1,8 +1,10 @@
+// Zachary Krigelman :: Assignment 2
 #include "stdafx.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
+// Creating base class
 class Tickets
 {
 	string issue;
@@ -10,7 +12,9 @@ class Tickets
 	string note;
 	int users;
 	char replay;
+	static int IDGenerator;
 	int ID;
+	int ID2;
 	char status;
 public:
 	Tickets();
@@ -19,17 +23,26 @@ public:
 	~Tickets();
 	void CloseTicket(int a);
 };
+ 
+// Creating base constructor
 Tickets::Tickets()
 {}
+
+// Instantiate ID generator
+int Tickets::IDGenerator = 1;
+
+// Close ticket function
 void Tickets::CloseTicket(int a)
 {
 	status = 'c';
 	cout << endl << "Ticket " << a << " is closed" << endl;
 }
 
+// Ticket creation
 Tickets::Tickets(int c)
 {
-	ID = c;
+	ID = IDGenerator;
+	ID2 = c;
 		cout << "Enter the caller's name:" << endl;
 		getline(cin, cName, '\n');
 		cout << "Server, application or access issue?" << endl;
@@ -41,9 +54,12 @@ Tickets::Tickets(int c)
 		getline(cin, note, '\n');
 		status = 'O';
 }
+
+// Displays Tickets
 void Tickets::ShowTicket(int c)
 {
-	cout << endl << "Ticket Number " << c + 1 << ":" << endl;
+	cout << endl << "Ticket Number " << ID << ":" << endl;
+	cout << "Ticket in system: " << ID2 + 1 << endl;
 	cout << "Caller: " << cName << endl;
 	cout << "Issue Type: " << issue << endl;
 	if (users < 10)
@@ -70,8 +86,12 @@ void Tickets::ShowTicket(int c)
 	}
 }
 
+// Deallocate memory
 Tickets::~Tickets()
-{}
+{
+}
+
+// main function
 int main()
 {
 	const int MAXTICKETS = 100;
